@@ -1,10 +1,24 @@
 ---
-  - name: Print os facts
-    hosts: all
-    tasks:
-      - name: Print OS
-        debug:
-          msg: "{{ ansible_distribution }}"
-      - name: Print fact
-        debug:
-          msg: "{{ some_fact }}"
+- name: install python3 on ubuntu
+  hosts: deb
+  gather_facts: false
+  tasks:
+  - name: install python3
+    raw: apt update && apt install -y python3
+
+- name: install python3 on centos
+  hosts: el
+  gather_facts: false
+  tasks:
+  - name: install python3
+    raw: yum install -y python3
+        
+- name: Print os facts
+  hosts: all
+  tasks:
+  - name: Print OS
+    debug:
+      msg: "{{ ansible_distribution }}"
+  - name: Print fact
+    debug:
+      msg: "{{ some_fact }}"
